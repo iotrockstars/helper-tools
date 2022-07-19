@@ -1,5 +1,6 @@
 while [ "$#" -gt 0 ]; do
     case "$1" in
+        --subscription_id)                subscription_id="$2" ;;
         --hub_name)                       hub_name="$2" ;;
         --endpoint_name)                  endpoint_name="$2" ;;
         --endpoint_resource_group)        endpoint_resource_group="$2" ;;
@@ -14,7 +15,7 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
-az account set -s $endpoint_subscription_id
+az account set -s $subscription_id
 az extension add --name azure-iot -y
 
 az iot hub routing-endpoint create \
