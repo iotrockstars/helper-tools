@@ -9,6 +9,8 @@ route_name=$8
 route_source=$9
 route_condition=${10}
 
+az extension add --name azure-iot --upgrade --yes
+
 az iot hub routing-endpoint create \
     --hub-name $hub_name \
     --endpoint-name $endpoint_name \
