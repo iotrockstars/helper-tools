@@ -1,15 +1,20 @@
-hub_name=$1
-endpoint_name=$2
-endpoint_resource_group=$3
-endpoint_subscription_id=$4
-endpoint_type=$5
-auth_type=$6
-identity=$7
-route_name=$8
-route_source=$9
-route_condition=${10}
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --hub_name)                       hub_name="$2" ;;
+        --endpoint_name)                  endpoint_name="$2" ;;
+        --endpoint_resource_group)        endpoint_resource_group="$2" ;;
+        --endpoint_subscription_id)       endpoint_subscription_id="$2" ;;
+        --endpoint_type)                  endpoint_type="$2" ;;
+        --auth_type)                      auth_type="$2" ;;
+        --identity)                       identity="$2" ;;
+        --route_name)                     route_name="$2" ;;
+        --route_source)                   route_source="$2" ;;
+        --route_condition)                route_condition="$2" ;;
+    esac
+    shift
+done
 
-az extension add --name azure-iot --upgrade --yes
+az extension add --name azure-iot -y
 
 az iot hub routing-endpoint create \
     --hub-name $hub_name \
