@@ -14,6 +14,7 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
+az account set -s $endpoint_subscription_id
 az extension add --name azure-iot -y
 
 az iot hub routing-endpoint create \
