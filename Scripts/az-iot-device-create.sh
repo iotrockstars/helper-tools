@@ -10,6 +10,8 @@ done
 
 az account set -s $subscription_id
 az extension add --name azure-iot -y
+az account show
+az iot hub list
 
 az iot hub device-identity create \
     --hub-name $hub_name \
