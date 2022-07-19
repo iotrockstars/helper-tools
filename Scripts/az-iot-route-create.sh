@@ -26,4 +26,3 @@ az iot hub route create \
     --name $route_name \
     --source $route_source \
     --condition $route_condition
-    --enabled true
