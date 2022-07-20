@@ -14,8 +14,19 @@ az extension add --name azure-iot -y
 az account show
 az iot hub list
 
-az iot hub device-identity create \
+device=$(az iot hub device-identity show \
     --resource-group $resource_group \
     --hub-name $hub_name \
     --device-id $device_id \
-    --auth-method $auth_method
+    -o none)
+
+if [ -z $rttest];
+then
+    az iot hub device-identity create \
+        --resource-group $resource_group \
+        --hub-name $hub_name \
+        --device-id $device_id \
+        --auth-method $auth_method
+else
+  echo 'device exists, skipping creation'
+fi
