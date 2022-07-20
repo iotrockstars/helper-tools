@@ -18,14 +18,11 @@ done
 
 az account set -s $subscription_id
 az extension add --name azure-iot -y
-az account show
-az iot hub list
 
 endpoint=$(az iot hub routing-endpoint show \
     --resource-group $resource_group \
     --hub-name $hub_name \
-    --endpoint-name $endpoint_name \
-    -o none)
+    --endpoint-name $endpoint_name)
 
 if [ -z $endpoint];
 then
@@ -37,7 +34,8 @@ then
         --endpoint-subscription-id $endpoint_subscription_id \
         --endpoint-type $endpoint_type \
         --auth-type $auth_type \
-        --identity $identity
+        --identity $identity \
+        -o none
 else
   echo 'endpoint exists, skipping creation'
 fi
@@ -45,8 +43,7 @@ fi
 route=$(az iot hub route show \
     --resource-group $resource_group \
     --hub-name $hub_name \
-    --name $route_name \
-    -o none)
+    --name $route_name)
 
 if [ -z $route];
 then
@@ -56,7 +53,8 @@ then
         --endpoint-name $endpoint_name \
         --name $route_name \
         --source $route_source \
-        --condition $route_condition
+        --condition $route_condition \
+        -o none
 else
   echo 'route exists, skipping creation'
 fi

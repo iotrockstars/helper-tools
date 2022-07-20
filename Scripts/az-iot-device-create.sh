@@ -9,16 +9,13 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
-az account set -s $subscription_id
-az extension add --name azure-iot -y
-az account show
-az iot hub list
+az account set -s $subscription_id -o none
+az extension add --name azure-iot -y -o none
 
 device=$(az iot hub device-identity show \
     --resource-group $resource_group \
     --hub-name $hub_name \
-    --device-id $device_id \
-    -o none)
+    --device-id $device_id)
 
 if [ -z $device];
 then
@@ -26,7 +23,8 @@ then
         --resource-group $resource_group \
         --hub-name $hub_name \
         --device-id $device_id \
-        --auth-method $auth_method
+        --auth-method $auth_method \
+        -o none
 else
   echo 'device exists, skipping creation'
 fi
