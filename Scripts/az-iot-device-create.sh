@@ -20,7 +20,7 @@ device=$(az iot hub device-identity show \
     --device-id $device_id \
     -o none)
 
-if [ -z $rttest];
+if [ -z $device];
 then
     az iot hub device-identity create \
         --resource-group $resource_group \
