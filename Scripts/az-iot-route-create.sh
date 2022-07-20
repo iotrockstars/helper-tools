@@ -36,6 +36,11 @@ then
         --auth-type $auth_type \
         --identity $identity \
         -o none
+
+    if [[ $? -gt 0 ]]
+    then
+        exit 1
+    fi
 else
   echo 'endpoint exists, skipping creation'
 fi
