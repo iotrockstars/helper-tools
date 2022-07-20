@@ -1,6 +1,7 @@
 while [ "$#" -gt 0 ]; do
     case "$1" in
         --subscription_id)                subscription_id="$2" ;;
+        --resource_group)                 resource_group="$2" ;;
         --hub_name)                       hub_name="$2" ;;
         --endpoint_name)                  endpoint_name="$2" ;;
         --endpoint_resource_group)        endpoint_resource_group="$2" ;;
@@ -21,6 +22,7 @@ az account show
 az iot hub list
 
 az iot hub routing-endpoint create \
+    --resource-group $resource_group \
     --hub-name $hub_name \
     --endpoint-name $endpoint_name \
     --endpoint-resource-group $endpoint_resource_group \
@@ -30,8 +32,9 @@ az iot hub routing-endpoint create \
     --identity $identity
 
 az iot hub route create \
-    --endpoint-name $endpoint_name \
+    --resource-group $resource_group \
     --hub-name $hub_name \
+    --endpoint-name $endpoint_name \
     --name $route_name \
     --source $route_source \
     --condition $route_condition
