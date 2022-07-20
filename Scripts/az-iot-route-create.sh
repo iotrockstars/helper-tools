@@ -6,9 +6,10 @@ while [ "$#" -gt 0 ]; do
         --endpoint_name)                  endpoint_name="$2" ;;
         --endpoint_resource_group)        endpoint_resource_group="$2" ;;
         --endpoint_subscription_id)       endpoint_subscription_id="$2" ;;
+        --endpoint_uri)                   endpoint_uri="$2" ;;
         --endpoint_type)                  endpoint_type="$2" ;;
+        --entity_path)                    entity_path="$2" ;;
         --auth_type)                      auth_type="$2" ;;
-        --identity)                       identity="$2" ;;
         --route_name)                     route_name="$2" ;;
         --route_source)                   route_source="$2" ;;
         --route_condition)                route_condition="$2" ;;
@@ -24,7 +25,7 @@ endpoint=$(az iot hub routing-endpoint show \
     --hub-name $hub_name \
     --endpoint-name $endpoint_name)
 
-if [ -z $endpoint];
+if [[ -z $endpoint ]];
 then
     az iot hub routing-endpoint create \
         --resource-group $resource_group \
@@ -32,9 +33,10 @@ then
         --endpoint-name $endpoint_name \
         --endpoint-resource-group $endpoint_resource_group \
         --endpoint-subscription-id $endpoint_subscription_id \
+        --endpoint-uri $endpoint_uri \
         --endpoint-type $endpoint_type \
+        --entity-path $entity_path \
         --auth-type $auth_type \
-        --identity $identity \
         -o none
 
     if [[ $? -gt 0 ]]
@@ -50,7 +52,7 @@ route=$(az iot hub route show \
     --hub-name $hub_name \
     --name $route_name)
 
-if [ -z $route];
+if [[ -z $route ]];
 then
     az iot hub route create \
         --resource-group $resource_group \
